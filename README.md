@@ -52,14 +52,14 @@ python3 kafka_connection_test.py
 ``` bash
 python3 01_kafka_create_topics.py
 ```
-![Description of Image](assets/01_kafka_create_topic.png)
+![Description of Image](assets/01_kafka_create_topics.png)
 
 ❌ Reset Kafka Topics (if needed)
 
 ``` bash
 python3 02_delete_topics.py
 ```
-![Description of Image](assets/2_delete_topics.png)
+![Description of Image](assets/02_delete_topics.png)
 
 2️⃣ Start the Sensor Data Producer
 This script generates simulated sensor data and sends it to Kafka.

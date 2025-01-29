@@ -92,7 +92,8 @@ This script listens for temperature and humidity alerts from Kafka.
 ``` bash
 python3 06_alerts_consumer.py
 ```
-![Description of Image](assets/05_sensor_alert_processor.png)
+![Description of Image](assets/06_alerts_consumer_1.png)
+![Description of Image](assets/06_alerts_consumer_2.png)
 
 💡 Notes:
 

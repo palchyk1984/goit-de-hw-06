@@ -8,14 +8,12 @@ A producer generates sensor data, which is processed and stored in dedicated top
 ├── kafka_config.py          # Kafka configuration (server, username, password)
 ├── alerts_conditions.csv     # Alert conditions configuration file
 ├── kafka_connection_test.py # Script to check connection with the Server
-├── delete_topics.py      # Reset Kafka Topics (if needed)
 ├── 01_kafka_create_topics.py   # Script to create Kafka topics
-├── 02_sensor_data_producer.py  # Producer that generates sensor data
-├── 03_sensor_alert_processor.py  # Processor that analyzes sensor data and generates alerts
-├── 04_alerts_consumer.py       # Consumer that listens for temperature and humidity alerts
-├── 05_sliding_window_processor.py  # New processor to implement sliding window and generate alerts
-
-
+├── 02_delete_topics.py      # Reset Kafka Topics (if needed)
+├── 03_sensor_data_producer.py  # Producer that generates sensor data
+├── 04_sliding_window_processor.py  # New processor to implement sliding window and generate alerts
+├── 05_sensor_alert_processor.py  # Processor that analyzes sensor data and generates alerts
+├── 06_alerts_consumer.py       # Consumer that listens for temperature and humidity alerts
 ```
 
 
@@ -54,33 +52,52 @@ python3 kafka_connection_test.py
 ``` bash
 python3 01_kafka_create_topics.py
 ```
-![Description of Image](assets/Create_Kafka_Topics.png)
+![Description of Image](assets/01_kafka_create_topic.png)
 
 ❌ Reset Kafka Topics (if needed)
 
 ``` bash
-python3 delete_topics.py
+python3 02_delete_topics.py
 ```
-![Description of Image](assets/Reset_Kafka_Topics.png)
+![Description of Image](assets/2_delete_topics.png)
 
-2️⃣ Start the Producer (Simulating Sensor Data)
+2️⃣ Start the Sensor Data Producer
+This script generates simulated sensor data and sends it to Kafka.
 
 ``` bash
-python3 02_sensor_data_producer.py
+python3 03_sensor_data_producer.py
 ```
-![Description of Image](assets/Producer.png)
+![Description of Image](assets/03_sensor_data_producer.png)
 
-3️⃣ Start the Data Processor (Generates Alerts)
+3️⃣ Start the Sliding Window Aggregator
+This process calculates the average temperature and humidity over a 1-minute sliding window.
 
 ``` bash
-python3 03_sensor_alert_processor.py
+python3 04_sliding_window_processor.py
+
 ```
-![Description of Image](assets/Processor.png)
+![Description of Image](assets/04_sliding_window_processor.png)
 
 4️⃣ Start the Alerts Consumer
+This script checks aggregated sensor data against alert thresholds and sends alerts.
 
 ``` bash
-python3 04_alerts_consumer.py
+python3 05_sensor_alert_processor.py
 ```
-![Description of Image](assets/Consumer.png)
+![Description of Image](assets/05_sensor_alert_processor.png)
 
+5️⃣ Start the Alerts Consumer
+This script listens for temperature and humidity alerts from Kafka.
+
+``` bash
+python3 06_alerts_consumer.py
+```
+![Description of Image](assets/05_sensor_alert_processor.png)
+
+💡 Notes:
+
+- Make sure Kafka is running before starting the scripts.
+- The alert conditions are loaded from alerts_conditions.csv dynamically.
+- Multiple instances of sensor producers and processors can run simultaneously.
+
+This updated How to Run section now includes the new Sliding Window Processor and ensures the correct script order for execution. 🚀
